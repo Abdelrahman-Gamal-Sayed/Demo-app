@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
-import axios from 'axios'
+import http from '../Services/httpService';
+import config from '../config.json'
 
 
 class BodyC extends Component {
@@ -7,7 +8,7 @@ class BodyC extends Component {
 
  
     state = {   
-      dataa:[],
+      data:[],
       PatientInsurance:[],
       Contacts:[]
      }
@@ -27,13 +28,11 @@ class BodyC extends Component {
 
 
  async componentDidMount() {
-      const {data:dataa}= await axios.get('http://3.120.165.103:203/api/patient/getpatient/205609/853');
+      const {data}= await http.get(config.apiEndpoint);
 
-
-console.log('aaa',dataa.PatientContacts[0].ContactType)
-const PatientInsurance=dataa.PatientInsuranceCards;
-const Contacts=dataa.PatientContacts[0].ContactType;
-this.setState({dataa,PatientInsurance,Contacts});
+const PatientInsurance=data.PatientInsuranceCards;
+const Contacts=data.PatientContacts[0].ContactType;
+this.setState({data,PatientInsurance,Contacts});
    
     }
 
@@ -55,7 +54,7 @@ this.setState({dataa,PatientInsurance,Contacts});
   <div class="card" >
   <img src="http://via.placeholder.com/250" class="img-rounded"/>
   <div class="card-body"  className='text-center'>
-  <h5  class="card-title">{this.state.dataa.FirstName +' '+this.state.dataa.LastName}</h5>
+  <h5  class="card-title">{this.state.data.FirstName +' '+this.state.data.LastName}</h5>
   </div>
 
   <div>
@@ -68,7 +67,7 @@ this.setState({dataa,PatientInsurance,Contacts});
   <path d="M2 5.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1z"/>
   <path fill-rule="evenodd" d="M2 8.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5z"/>
 </svg>
-    {this.state.dataa.PatientID}
+    {this.state.data.PatientID}
 </div>
 
   </li>
@@ -82,7 +81,7 @@ this.setState({dataa,PatientInsurance,Contacts});
 <path fill-rule="evenodd" d="M3.5 0a.5.5 0 0 1 .5.5V1a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 .5-.5zm9 0a.5.5 0 0 1 .5.5V1a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 .5-.5z"/>
 <path d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-2 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
 </svg>
-  { this.datestring(this.state.dataa.DOB)  }
+  { this.datestring(this.state.data.DOB)  }
   
   </li>
 
@@ -95,7 +94,7 @@ this.setState({dataa,PatientInsurance,Contacts});
 <path d="M5 0h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2v-1a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1H3a2 2 0 0 1 2-2z"/>
 </svg>
   
-  {this.state.dataa.FileNumber}</li>
+  {this.state.data.FileNumber}</li>
 <li class="list-group-item"> <div class="form-check">
 <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" disabled />
 <label class="form-check-label" for="defaultCheck2">
@@ -157,7 +156,7 @@ GuaranteeOfPayment
   <div class="card bg-light mb-3" >
   <div class="card-header">SocialSecurityNumber</div>
   <div class="card-body">
-    <h5 class="card-title">{this.state.dataa.SocialSecurityNumber}</h5>
+    <h5 class="card-title">{this.state.data.SocialSecurityNumber}</h5>
  </div>
 </div>
 
@@ -166,7 +165,7 @@ GuaranteeOfPayment
 <div class="card bg-light mb-3" >
   <div class="card-header">FileNumber</div>
   <div class="card-body">
-    <h5 class="card-title">{this.state.dataa.FileNumber}</h5>
+    <h5 class="card-title">{this.state.data.FileNumber}</h5>
   </div>
 </div>
 
